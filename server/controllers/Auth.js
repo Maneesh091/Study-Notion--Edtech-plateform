@@ -71,7 +71,7 @@ exports.sendOTP = async (req, res) =>  {
 };
 
 //signUp
-exports.signUp = async (req, res) => {
+exports.signup = async (req, res) => {
     try {
 
         //data fetch from request ki body
