@@ -1,11 +1,14 @@
 const Section = require("../models/Section");
 const Course = require("../models/Course");
+const Subsection = require("../models/Subsection");
 // CREATE a new section
 exports.createSection = async (req, res) => {
     try {
         // Extract the required properties from the request body
         const { sectionName, courseId } = req.body;
-
+        console.log(req.body); 
+   console.log(sectionName);
+      console.log(courseId);
         // Validate the input
         if (!sectionName || !courseId) {
             return res.status(400).json({
@@ -16,6 +19,18 @@ exports.createSection = async (req, res) => {
 
         // Create a new section with the given name
         const newSection = await Section.create({ sectionName });
+        console.log("Course ID:", courseId);
+        console.log(typeof courseId);
+
+        
+
+        
+
+
+console.log("New Section:", newSection);
+
+console.log("Section ID:", newSection._id);
+console.log(Course);
 
         // Add the new section to the course's content array
         const updatedCourse = await Course.findByIdAndUpdate(
@@ -34,6 +49,8 @@ exports.createSection = async (req, res) => {
                 },
             })
             .exec();
+
+            console.log(updatedCourse);
 
         // Return the updated course object in the response
         res.status(200).json({
@@ -76,19 +93,68 @@ exports.updateSection = async (req, res) => {
 // DELETE a section
 exports.deleteSection = async (req, res) => {
     try {
-        //HW -> req.params -> test
-        const { sectionId } = req.params;
-        await Section.findByIdAndDelete(sectionId);
-        //HW -> Course ko bhi update karo
-        res.status(200).json({
-            success: true,
-            message: "Section deleted",
+
+        // Fetch data
+        const { sectionId, courseId } = req.body;
+
+        // Validation
+        if (!sectionId || !courseId) {
+            return res.status(400).json({
+                success: false,
+                message: "Section ID and Course ID are required",
+            });
+        }
+
+        // Find the section
+        const section = await Section.findById(sectionId);
+
+        if (!section) {
+            return res.status(404).json({
+                success: false,
+                message: "Section not found",
+            });
+        }
+
+        // Delete all subsections of this section
+        await SubSection.deleteMany({
+            _id: {
+                $in: section.subSection,
+            },
         });
+
+        // Remove section reference from course
+        const updatedCourse = await Course.findByIdAndUpdate(
+            courseId,
+            {
+                $pull: {
+                    courseContent: sectionId,
+                },
+            },
+            { new: true }
+        ).populate({
+            path: "courseContent",
+            populate: {
+                path: "subSection",
+            },
+        });
+
+        // Delete the section
+        await Section.findByIdAndDelete(sectionId);
+
+        return res.status(200).json({
+            success: true,
+            message: "Section deleted successfully",
+            data: updatedCourse,
+        });
+
     } catch (error) {
-        console.error("Error deleting section:", error);
-        res.status(500).json({
+
+        console.error(error);
+
+        return res.status(500).json({
             success: false,
-            message: "Internal server error",
+            message: "Internal Server Error",
+            error: error.message,
         });
     }
 };

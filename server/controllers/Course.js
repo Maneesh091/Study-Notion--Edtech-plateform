@@ -2,6 +2,8 @@ const Course = require("../models/Course");
 const Category = require("../models/Category");
 const User = require("../models/User");
 const { uploadImageToCloudinary } = require("../utils/imageUploader");
+
+
 // Function to create a new course
 exports.createCourse = async (req, res) => {
     try {
@@ -66,8 +68,9 @@ exports.createCourse = async (req, res) => {
             thumbnail,
             process.env.FOLDER_NAME
         );
-        console.log(thumbnailImage);
+        console.log("thumbnail = ", thumbnailImage);
         // Create a new course with the given details
+        console.log("before creating course");
         const newCourse = await Course.create({
             courseName,
             courseDescription,
@@ -80,6 +83,8 @@ exports.createCourse = async (req, res) => {
             status: status,
             instructions: instructions,
         });
+        console.log("after creating course");
+
 
         // Add the new course to the User Schema of the Instructor
         await User.findByIdAndUpdate(
@@ -153,7 +158,8 @@ exports.getAllCourses = async (req, res) => {
 exports.getCourseDetails = async (req, res) => {
     try {
             //get id
-            const {courseId} = req.body;
+            console.log(req.params);
+            const courseId = req.params.id;
             //find course details
             const courseDetails = await Course.find(
                                         {_id:courseId})

@@ -3,13 +3,16 @@ const express = require("express")
 const router = express.Router()
 
 // Import the required controllers and middleware functions
+
+const {mailSender} = require("../utils/mailSender");
 const {
   login,
   signup,
-  sendotp,
   changePassword,
   sendOTP,
 } = require("../controllers/Auth")
+
+
 const {
   resetPasswordToken,
   resetPassword,

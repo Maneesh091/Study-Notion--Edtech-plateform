@@ -1,8 +1,10 @@
 const User = require("../models/User");
 const OTP = require("../models/OTP");
+const Profile = require("../models/Profile")
 const otpGenerator = require("otp-generator");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const mailSender = require("../utils/mailSender");
 require("dotenv").config();
 
 
@@ -51,6 +53,16 @@ exports.sendOTP = async (req, res) =>  {
         const otpBody = await OTP.create(otpPayload);
         console.log(otpBody);
 
+        // Send OTP Email
+await mailSender(
+    email,
+    "OTP Verification",
+    `<h2>Your OTP is <b>${otp}</b></h2>
+     <p>This OTP is valid for 5 minutes.</p>`
+);
+
+console.log("OTP Mail Sent");
+
         //return response successful
         res.status(200).json({
             success:true,
@@ -92,7 +104,9 @@ exports.signup = async (req, res) => {
                     success:false,
                     message:"All fields are required",
                 })
-        }
+        } 
+
+        console.log("Step 1");
 
 
         //2 password match krlo
@@ -101,7 +115,9 @@ exports.signup = async (req, res) => {
                 success:false,
                 message:'Password and ConfirmPassword Value does not match, please try again',
             });
-        }
+        } 
+
+        console.log("Step 2");
 
         //check user already exist or not
         const existingUser = await User.findOne({email});
@@ -112,23 +128,27 @@ exports.signup = async (req, res) => {
             });
         }
 
-        //find most recent OTP stored for the user
-        const recentOtp = await OTP.find({email}).sort({createdAt:-1}).limit(1);
-        console.log(recentOtp);
-        //validate OTP
-        if(recentOtp.length == 0) {
-            //OTP not found
-            return res.status(400).json({
-                success:false,
-                message:'OTPP Found',
-            })
-        } else if(otp !== recentOtp.otp) {
-            //Invalid OTP
-            return res.status(400).json({
-                success:false,
-                message:"Invalid OTP",
-            });
-        }
+        console.log("Step 3");
+
+      const recentOtp = await OTP.findOne({ email })
+    .sort({ createdAt: -1 });
+
+if (!recentOtp) {
+    return res.status(400).json({
+        success: false,
+        message: "OTP not found",
+    });
+}
+
+if (otp !== recentOtp.otp) {
+    return res.status(400).json({
+        success: false,
+        message: "Invalid OTP",
+    }); 
+}
+
+// await OTP.deleteMany({ email });
+console.log("maneesh");
 
 
         //Hash password
@@ -140,7 +160,7 @@ exports.signup = async (req, res) => {
             gender:null,
             dateOfBirth: null,
             about:null,
-            contactNumer:null,
+            contactNumBer:null,
         });
 
         const user = await User.create({
@@ -151,7 +171,7 @@ exports.signup = async (req, res) => {
             password:hashedPassword,
             accountType,
             additionalDetails:profileDetails._id,
-            image: `https://api.dicebear.com/5.x/initials/svg?seed=${firstname} ${lastName}`,
+            image: `https://api.dicebear.com/5.x/initials/svg?seed=${firstName} ${lastName}`,
         })
 
         //return res
