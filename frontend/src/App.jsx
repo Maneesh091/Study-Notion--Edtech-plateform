@@ -1,10 +1,11 @@
 import{Route,Routes} from "react-router-dom";
 import Home from "./pages/Home"
-
+// import  Navbar  from "./components/core/common/Navbar";
 function App() {
 
   return (
-   <div  className="min-h-screen w-full bg-richblack-900">
+   <div  className="min-h-screen w-full bg-richblack-900"> 
+   {/* <Navbar/> */}
     <Routes>
       <Route path = "/" element = {<Home/>}/>
     </Routes>
@@ -12,5 +13,5 @@ function App() {
   
   )
 }
-
+ 
 export default App

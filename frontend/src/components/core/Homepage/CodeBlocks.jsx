@@ -33,7 +33,10 @@ const CodeBlocks = ({
         </div>
 
         {/*Section 2*/}
-        <div className="h-fit flex w-[50%] py-4 text-[10px] ">
+<div className="h-fit flex w-[50%] py-4 text-[10px] relative bg-[#0d1117]
+ p-5 border border-[rgba(139,92,246,0.10)] 
+ shadow-[0_0_16px_6px_rgba(139,92,246,0.11)]">
+ 
             {/*HW -> BG gradient*/}
 
             <div className='text-center flex flex-col w-[10%] text-richblack-400 font-inter font-bold'>

@@ -1,4 +1,9 @@
-@import "tailwindcss";
+@import "tailwindcss"; 
+
+html,
+body {
+    overflow-x: hidden;
+}
 
 @theme {
   --color-richblack-5: #F1F2FF;
@@ -13,4 +18,9 @@
   --color-richblack-700: #2C333F;
   --color-richblack-800: #161D29;
   --color-richblack-900: #000814;
+} 
+
+.homepage_bg{
+    background: url(../src/assets/Images/bghome.svg);
 }
+
