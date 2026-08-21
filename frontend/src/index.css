@@ -22,5 +22,22 @@ body {
 
 .homepage_bg{
     background: url(../src/assets/Images/bghome.svg);
-}
+} 
 
+/* body {
+  background: #0e101c;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  color: white;
+  padding: 0 20px 50px;
+} */
+
+@layer components {
+  .form-input input,.form-input textarea,.form-input select {
+    @apply border border-richblack-500 rounded-md px-3 py-2 w-full 
+           focus:outline-none focus:ring-2 focus:ring-blue-500;
+  }
+
+  
+}

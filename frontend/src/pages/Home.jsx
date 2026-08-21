@@ -9,6 +9,7 @@ import Footer from '../components/core/Homepage/Footer'
 import TimelineSection from '../components/core/Homepage/TimelineSection'
 import LearningLanguageSection from '../components/core/Homepage/LearningLanguageSection'
 import ExploreSection from '../components/core/Homepage/ExploreSection'
+import BecomeAnInstructorSection from '../components/core/Homepage/BecomeAnInstructorSection'
 
 const Home = () => {
   return (
@@ -88,7 +89,9 @@ const Home = () => {
                 }
 
                 codeblock={`<!DOCTYPE html \n <html> \n head><title>Example</ \n title><linkrel="stylesheet"href="styles.css"> \n /head> \n body> \n h1><ahref="/">Header</a> \n /h1> \n nav><ahref="one/">One</a><ahref="two/">Two</ \n a><ahref="three/">Three</a> \n /nav>`}
-                codeColor={"text-yellow-25"}
+                 
+                        codeColor = {"text-yellow-50"}
+              
             />
         </div>
 
@@ -129,12 +132,16 @@ const Home = () => {
 
       </div>
 
-      {/*Section 2  */}
-  <div className='bg-pure-greys-5 text-richblack-700'>
+
+
+           
+
+             <div className='w-full bg-amber-50 mt-0'>
+                  <div className='bg-pure-greys-5 text-richblack-700'>
             <div className='homepage_bg h-[310px]'>
 
                 <div className='w-11/12 max-w-maxContent flex flex-col items-center justify-between gap-5 mx-auto'>
-                    <div className='h-[150px]'></div>
+                    <div className='h-[150px] bg-amber-100'></div>
                     <div className='flex flex-row gap-7 text-white '>
                         <CTAButton active={true} linkto={"/signup"}>
                             <div className='flex items-center gap-3' >
@@ -154,8 +161,8 @@ const Home = () => {
 
 
             </div>
-
-             <div className="w-full px-4 md:px-10 flex flex-col md:flex-row mx-auto mt-10 md:mt-20 justify-evenly gap-10 md:gap-0"> 
+                
+                <div className=" w-full px-4 md:px-10 flex flex-col md:flex-row mx-auto mt-10 md:mt-20 justify-evenly gap-10 md:gap-0"> 
                     <div className="w-full md:w-[45%] text-3xl md:text-4xl font-semibold">
                         Get the skill you need for a 
                         <HighlightText text={"job that is in demand"}/>
@@ -180,12 +187,20 @@ const Home = () => {
                     {/* Part 4 */}
                     <LearningLanguageSection/>
                 </div>
+             </div>
 
             
 
       </div>
 
-    //   {/*Section 3 */}
+    //         {/***************** Section 3 *****************/}
+            <div className="w-full px-4 md:px-10">
+                <BecomeAnInstructorSection/>
+                <h1 className="text-center text-4xl font-semibold mt-8 text-richblack-5">
+                    Reviews from other learners
+                </h1>
+                {/* <ReviewSlider /> */}
+            </div>
 
 
     //   {/*Footer */} 

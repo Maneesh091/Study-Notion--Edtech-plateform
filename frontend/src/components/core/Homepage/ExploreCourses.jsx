@@ -6,7 +6,7 @@ import { BiSolidVector } from "react-icons/bi";
 
 function ExploreCourses({index}){
     return (
-        <div className="flex flex-col lg:flex-row justify-evenly static lg:absolute lg:-bottom-24 w-[90%] lg:w-full gap-5 lg:gap-0 mt-5 lg:mt-0 mx-auto">
+        <div className="flex flex-col lg:flex-row justify-evenly static lg:absolute lg:-bottom-24 w-[90%] lg:w-full gap-5 lg:gap-0 mt-5 lg:mt-0 mx-auto ">
             {
                 HomePageExplore[index].courses.map((course, index) => (
                     <div key={index} className={`w-full lg:w-[30%] p-6 lg:mt-10 mt-2
