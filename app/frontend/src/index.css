@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+/* =========================
+   Custom Theme
+   ========================= */
+
+@theme {
+  /* Rich Black */
+  --color-richblack-5: #f1f2ff;
+  --color-richblack-25: #dbddea;
+  --color-richblack-50: #c5c7d4;
+  --color-richblack-100: #afb2bf;
+  --color-richblack-200: #999daa;
+  --color-richblack-300: #838894;
+  --color-richblack-400: #6e727f;
+  --color-richblack-500: #585d69;
+  --color-richblack-600: #424854;
+  --color-richblack-700: #2c333f;
+  --color-richblack-800: #161d29;
+  --color-richblack-900: #000814;
+
+  /* Custom UI Colors */
+  --color-midnight: #020914;
+  --color-surface: #07111f;
+  --color-elevated: #0a1422;
+
+  --color-brand: #00a878;
+
+  --color-pinkAccent: #f28bbf;
+  --color-blueAccent: #08a8e0;
+  --color-orangeAccent: #ff8500;
+
+  --color-heading: #f5f7fa;
+  --color-muted: #94a3b8;
+}
+
+/* =========================
+   Global Styles
+   ========================= */
+
+html,
+body {
+  overflow-x: hidden;
+}
+
+/* =========================
+   Homepage Background
+   ========================= */
+
+.homepage_bg {
+  background: url("./assets/Images/bghome.svg");
+}
+
+/* =========================
+   Form Components
+   ========================= */
+
+@layer components {
+  .form-input input,
+  .form-input textarea,
+  .form-input select {
+    @apply w-full rounded-md border border-richblack-500 px-3 py-2
+      focus:ring-2 focus:ring-blue-500 focus:outline-none;
+  }
+}
