@@ -1,0 +1,27 @@
+module.exports = {
+  $schema: "https://openapi.vercel.sh/vercel.json",
+  services: {
+    frontend: {
+      root: "frontend",
+      framework: "vite"
+    },
+    server: {
+      root: "server",
+      framework: "express"
+    }
+  },
+  rewrites: [
+    {
+      source: "/api/(.*)",
+      destination: {
+        service: "server"
+      }
+    },
+    {
+      source: "/(.*)",
+      destination: {
+        service: "frontend"
+      }
+    }
+  ]
+};
